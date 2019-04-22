@@ -1,4 +1,4 @@
-# @ncodefactory/morph-ctrls
+# morph-ctrls
 
 gui controls for morph applications
 
