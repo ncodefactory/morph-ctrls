@@ -44,6 +44,7 @@ const maatMuiScaleFactorPropType = customPropType('maatMuiScaleFactor', value =>
 const contentAlignmentPropType = customPropType('textAlignment', value => isValidContentAlignment(value));
 const orientationPropType = customPropType('orientation', value => isValidOrientation(value));
 const MorphPropTypes = {
+  child: PropTypes.node,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   contentAlignment: contentAlignmentPropType,
   hexColorStringWithoutAlpha: hexColorStringWithoutAlphaPropType,

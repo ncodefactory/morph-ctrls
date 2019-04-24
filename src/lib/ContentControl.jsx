@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MorphPropTypes from './prop-types';
 
 const ContentControl = ({
@@ -8,9 +9,9 @@ const ContentControl = ({
   scale,
   margin,
   padding,
-  children,
-  orientation,
+  child,
   contentAlignment,
+  horizontalStretch,
 }) => {
   let scaleFactor = 1;
   switch (scale.toLowerCase()) {
@@ -58,19 +59,6 @@ const ContentControl = ({
       fontSize = 16;
   }
 
-  let flexDirection = 'row';
-  switch (orientation.toLowerCase()) {
-    case 'horizontal':
-      flexDirection = 'row';
-      break;
-    case 'vertical':
-      flexDirection = 'column';
-      break;
-    default:
-      flexDirection = 'row';
-      break;
-  }
-
   let justifyContent = 'flex-start';
   const lowerJustifyContent = contentAlignment.toLowerCase();
   switch (lowerJustifyContent) {
@@ -95,24 +83,23 @@ const ContentControl = ({
 
   const containerStyle = {
     minHeight: '100%',
-    display: 'flex',
-    flexDirection,
+    display: `${horizontalStretch ? 'flex' : 'inline-flex'}`,
+    flex: 1,
+    flexGrow: 1,
   };
 
   const contentPaddingStyle = {
-    flex: 1,
-    display: 'flex',
-    flexDirection,
     justifyContent,
+    flex: 1,
+    flexGrow: 1,
   };
   const contentMarginStyle = {
     fontSize: `${fontSize * scaleFactor}px`,
     backgroundColor: background,
     color: foreground,
-    flex: 1,
-    display: 'flex',
-    flexDirection,
     justifyContent,
+    flex: 1,
+    flexGrow: 1,
   };
 
   if (padding) {
@@ -132,7 +119,7 @@ const ContentControl = ({
   return (
     <div style={containerStyle}>
       <div style={contentMarginStyle}>
-        <div style={contentPaddingStyle}>{children}</div>
+        <div style={contentPaddingStyle}>{child}</div>
       </div>
     </div>
   );
@@ -145,9 +132,9 @@ ContentControl.defaultProps = {
   scale: 'm',
   margin: null,
   padding: null,
-  children: null,
-  orientation: 'horizontal',
+  child: null,
   contentAlignment: 'start',
+  horizontalStretch: false,
 };
 ContentControl.propTypes = {
   background: MorphPropTypes.hexColorStringWithAlpha,
@@ -156,9 +143,9 @@ ContentControl.propTypes = {
   scale: MorphPropTypes.maatMuiScaleFactor,
   margin: MorphPropTypes.margin,
   padding: MorphPropTypes.padding,
-  children: MorphPropTypes.children,
-  orientation: MorphPropTypes.orientation,
+  child: MorphPropTypes.child,
   contentAlignment: MorphPropTypes.contentAlignment,
+  horizontalStretch: PropTypes.bool,
 };
 
 export default ContentControl;
