@@ -32,6 +32,22 @@ const isValidContentAlignment = (value) => {
   );
 };
 
+const isValidBorderStyle = (value) => {
+  const upCaseValue = value.toUpperCase();
+  return (
+    upCaseValue === 'NONE'
+    || upCaseValue === 'DOTTED'
+    || upCaseValue === 'DASHED'
+    || upCaseValue === 'SOLID'
+    || upCaseValue === 'DOUBLE'
+    || upCaseValue === 'GROOVE'
+    || upCaseValue === 'RIDGE'
+    || upCaseValue === 'INSET'
+    || upCaseValue === 'OUTSET'
+    || upCaseValue === 'HIDDEN'
+  );
+};
+
 const isValidOrientation = (value) => {
   const upCaseValue = value.toUpperCase();
   return upCaseValue === 'HORIZONTAL' || upCaseValue === 'VERTICAL';
@@ -43,7 +59,16 @@ const maatMuiControlSizePropType = customPropType('maatMuiControlSize', value =>
 const maatMuiScaleFactorPropType = customPropType('maatMuiScaleFactor', value => isValidScaleFactor(value));
 const contentAlignmentPropType = customPropType('textAlignment', value => isValidContentAlignment(value));
 const orientationPropType = customPropType('orientation', value => isValidOrientation(value));
+const borderStylePropType = customPropType('borderStyle', value => isValidBorderStyle(value));
 const MorphPropTypes = {
+  borderStyle: borderStylePropType,
+  borderThickness: PropTypes.shape({
+    left: PropTypes.number,
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    borderThickness: PropTypes.number,
+  }),
   child: PropTypes.node,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   contentAlignment: contentAlignmentPropType,
@@ -51,34 +76,20 @@ const MorphPropTypes = {
   hexColorStringWithAlpha: hexColorStringWithAlphaPropType,
   maatMuiControlSize: maatMuiControlSizePropType,
   maatMuiScaleFactor: maatMuiScaleFactorPropType,
-  margin:
-    PropTypes.shape({
-      left: PropTypes.number.isRequired,
-      top: PropTypes.number.isRequired,
-      right: PropTypes.number.isRequired,
-      bottom: PropTypes.number.isRequired,
-    })
-    || PropTypes.shape({
-      left: PropTypes.number.isRequired,
-      top: PropTypes.number.isRequired,
-    })
-    || PropTypes.shape({
-      margin: PropTypes.number.isRequired,
-    }),
+  margin: PropTypes.shape({
+    left: PropTypes.number,
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    margin: PropTypes.number,
+  }),
   orientation: orientationPropType,
-  padding:
-    PropTypes.shape({
-      left: PropTypes.number.isRequired,
-      top: PropTypes.number.isRequired,
-      right: PropTypes.number.isRequired,
-      bottom: PropTypes.number.isRequired,
-    })
-    || PropTypes.shape({
-      left: PropTypes.number.isRequired,
-      top: PropTypes.number.isRequired,
-    })
-    || PropTypes.shape({
-      padding: PropTypes.number.isRequired,
-    }),
+  padding: PropTypes.shape({
+    left: PropTypes.number,
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    padding: PropTypes.number,
+  }),
 };
 export default MorphPropTypes;

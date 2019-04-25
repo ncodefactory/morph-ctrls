@@ -8,10 +8,13 @@ const ContentControl = ({
   size,
   scale,
   margin,
+  borderThickness,
+  borderColor,
+  borderStyle,
   padding,
   child,
   contentAlignment,
-  horizontalStretch,
+  inline,
 }) => {
   let scaleFactor = 1;
   switch (scale.toLowerCase()) {
@@ -81,26 +84,32 @@ const ContentControl = ({
       break;
   }
 
+  // eslint-disable-next-line no-console
+  console.log(justifyContent);
+
   const containerStyle = {
-    minHeight: '100%',
-    display: `${horizontalStretch ? 'flex' : 'inline-flex'}`,
-    flex: 1,
-    flexGrow: 1,
+    display: `${inline ? 'inline-flex' : 'flex'}`,
+    justifyContent,
   };
 
   const contentPaddingStyle = {
+    backgroundColor: background,
+    color: foreground,
     justifyContent,
-    flex: 1,
-    flexGrow: 1,
   };
   const contentMarginStyle = {
     fontSize: `${fontSize * scaleFactor}px`,
     backgroundColor: background,
     color: foreground,
     justifyContent,
-    flex: 1,
-    flexGrow: 1,
   };
+
+  containerStyle.flex = 1;
+  containerStyle.flexGrow = 1;
+  contentMarginStyle.flex = 1;
+  contentMarginStyle.flexGrow = 1;
+  contentPaddingStyle.flex = 1;
+  contentPaddingStyle.flexGrow = 1;
 
   if (padding) {
     contentPaddingStyle.marginLeft = (padding.left || padding.padding || 0) * scaleFactor;
@@ -114,6 +123,20 @@ const ContentControl = ({
     contentMarginStyle.marginTop = (margin.top || margin.margin || 0) * scaleFactor;
     contentMarginStyle.marginRight = (margin.right || margin.margin || 0) * scaleFactor;
     contentMarginStyle.marginBottom = (margin.bottom || margin.margin || 0) * scaleFactor;
+  }
+
+  if (borderThickness) {
+    contentMarginStyle.borderColor = borderColor;
+    contentMarginStyle.borderStyle = borderStyle;
+    contentMarginStyle.borderWidth = `${borderThickness.top
+      || borderThickness.borderThickness
+      || 0 * scaleFactor}px ${borderThickness.right
+      || borderThickness.borderThickness
+      || 0 * scaleFactor}px ${borderThickness.bottom
+      || borderThickness.borderThickness
+      || 0 * scaleFactor}px ${borderThickness.left
+      || borderThickness.borderThickness
+      || 0 * scaleFactor}px`;
   }
 
   return (
@@ -132,12 +155,18 @@ ContentControl.defaultProps = {
   scale: 'm',
   margin: null,
   padding: null,
+  borderThickness: { borderThickness: 1 },
+  borderStyle: 'none',
+  borderColor: '#000000ff',
   child: null,
   contentAlignment: 'start',
-  horizontalStretch: false,
+  inline: true,
 };
 ContentControl.propTypes = {
   background: MorphPropTypes.hexColorStringWithAlpha,
+  borderColor: MorphPropTypes.hexColorStringWithAlpha,
+  borderStyle: MorphPropTypes.borderStyle,
+  borderThickness: MorphPropTypes.borderThickness,
   foreground: MorphPropTypes.hexColorStringWithAlpha,
   size: MorphPropTypes.maatMuiControlSize,
   scale: MorphPropTypes.maatMuiScaleFactor,
@@ -145,7 +174,7 @@ ContentControl.propTypes = {
   padding: MorphPropTypes.padding,
   child: MorphPropTypes.child,
   contentAlignment: MorphPropTypes.contentAlignment,
-  horizontalStretch: PropTypes.bool,
+  inline: PropTypes.bool,
 };
 
 export default ContentControl;
