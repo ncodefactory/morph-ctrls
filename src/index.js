@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { ContentControl } from './lib';
+import { TextBlock } from './lib';
 
 ReactDOM.render(
-  <ContentControl child={<div>ContentControl</div>} />,
+  <TextBlock text="Fugiat anim amet enim do magna id eu sit." />,
   document.getElementById('root'),
 );
