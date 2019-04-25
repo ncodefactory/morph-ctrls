@@ -62,7 +62,7 @@ const TextBlock = ({
       minHeight={minHeight}
       width={width}
       height={height}
-      child={<div style={style}>{text}</div>}
+      content={<div style={style}>{text}</div>}
     />
   );
 };
