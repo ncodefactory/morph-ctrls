@@ -22,14 +22,7 @@ const isValidScaleFactor = (value) => {
 
 const isValidContentAlignment = (value) => {
   const upCaseValue = value.toUpperCase();
-  return (
-    upCaseValue === 'START'
-    || upCaseValue === 'END'
-    || upCaseValue === 'CENTER'
-    || upCaseValue === 'SPACE-BETWEEN'
-    || upCaseValue === 'SPACE-AROUND'
-    || upCaseValue === 'SPACE-EVENLY'
-  );
+  return upCaseValue === 'LEFT' || upCaseValue === 'CENTER' || upCaseValue === 'RIGHT';
 };
 
 const isValidBorderStyle = (value) => {
@@ -57,7 +50,7 @@ const hexColorStringWithoutAlphaPropType = customPropType('hexColorStringWithout
 const hexColorStringWithAlphaPropType = customPropType('hexColorStringWithAlpha', value => isValidHexColorString(value));
 const maatMuiControlSizePropType = customPropType('maatMuiControlSize', value => isValidControlSize(value));
 const maatMuiScaleFactorPropType = customPropType('maatMuiScaleFactor', value => isValidScaleFactor(value));
-const contentAlignmentPropType = customPropType('textAlignment', value => isValidContentAlignment(value));
+const contentAlignmentPropType = customPropType('contentAlignment', value => isValidContentAlignment(value));
 const orientationPropType = customPropType('orientation', value => isValidOrientation(value));
 const borderStylePropType = customPropType('borderStyle', value => isValidBorderStyle(value));
 const MorphPropTypes = {

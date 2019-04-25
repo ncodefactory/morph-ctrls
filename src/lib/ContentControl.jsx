@@ -15,6 +15,10 @@ const ContentControl = ({
   child,
   contentAlignment,
   inline,
+  minWidth,
+  width,
+  minHeight,
+  height,
 }) => {
   let scaleFactor = 1;
   switch (scale.toLowerCase()) {
@@ -62,73 +66,68 @@ const ContentControl = ({
       fontSize = 16;
   }
 
-  let justifyContent = 'flex-start';
+  let textAlign = 'left';
   const lowerJustifyContent = contentAlignment.toLowerCase();
   switch (lowerJustifyContent) {
-    case 'start':
-      justifyContent = 'flex-start';
+    case 'left':
+      textAlign = 'left';
       break;
     case 'center':
-      justifyContent = 'center';
+      textAlign = 'center';
       break;
-    case 'end':
-      justifyContent = 'flex-end';
-      break;
-    case 'space-between':
-    case 'space-around':
-    case 'space-evenly':
-      justifyContent = lowerJustifyContent;
+    case 'right':
+      textAlign = 'right';
       break;
     default:
-      justifyContent = 'flex-start';
+      textAlign = 'left';
       break;
   }
 
-  // eslint-disable-next-line no-console
-  console.log(justifyContent);
-
-  const containerStyle = {
-    display: `${inline ? 'inline-flex' : 'flex'}`,
-    justifyContent,
-  };
-
-  const contentPaddingStyle = {
+  const style = {
+    textAlign,
     backgroundColor: background,
     color: foreground,
-    justifyContent,
-  };
-  const contentMarginStyle = {
     fontSize: `${fontSize * scaleFactor}px`,
-    backgroundColor: background,
-    color: foreground,
-    justifyContent,
   };
 
-  containerStyle.flex = 1;
-  containerStyle.flexGrow = 1;
-  contentMarginStyle.flex = 1;
-  contentMarginStyle.flexGrow = 1;
-  contentPaddingStyle.flex = 1;
-  contentPaddingStyle.flexGrow = 1;
+  if (minWidth) {
+    style.minWidth = `${minWidth * scaleFactor}px`;
+  }
+
+  if (minHeight) {
+    style.minHeight = `${minHeight * scaleFactor}px`;
+  }
+
+  if (width) {
+    style.width = `${width * scaleFactor}px`;
+  }
+
+  if (height) {
+    style.height = `${height * scaleFactor}px`;
+  }
+
+  if (inline) {
+    style.display = 'inline-block';
+  }
 
   if (padding) {
-    contentPaddingStyle.marginLeft = (padding.left || padding.padding || 0) * scaleFactor;
-    contentPaddingStyle.marginTop = (padding.top || padding.padding || 0) * scaleFactor;
-    contentPaddingStyle.marginRight = (padding.right || padding.padding || 0) * scaleFactor;
-    contentPaddingStyle.marginBottom = (padding.bottom || padding.padding || 0) * scaleFactor;
+    style.paddingLeft = (padding.left || padding.padding || 0) * scaleFactor;
+    style.paddingTop = (padding.top || padding.padding || 0) * scaleFactor;
+    style.paddingRight = (padding.right || padding.padding || 0) * scaleFactor;
+    style.paddingBottom = (padding.bottom || padding.padding || 0) * scaleFactor;
   }
 
   if (margin) {
-    contentMarginStyle.marginLeft = (margin.left || margin.margin || 0) * scaleFactor;
-    contentMarginStyle.marginTop = (margin.top || margin.margin || 0) * scaleFactor;
-    contentMarginStyle.marginRight = (margin.right || margin.margin || 0) * scaleFactor;
-    contentMarginStyle.marginBottom = (margin.bottom || margin.margin || 0) * scaleFactor;
+    style.marginLeft = (margin.left || margin.margin || 0) * scaleFactor;
+    style.marginTop = (margin.top || margin.margin || 0) * scaleFactor;
+    style.marginRight = (margin.right || margin.margin || 0) * scaleFactor;
+    style.marginBottom = (margin.bottom || margin.margin || 0) * scaleFactor;
   }
 
   if (borderThickness) {
-    contentMarginStyle.borderColor = borderColor;
-    contentMarginStyle.borderStyle = borderStyle;
-    contentMarginStyle.borderWidth = `${borderThickness.top
+    style.borderColor = borderColor;
+    style.borderStyle = borderStyle;
+    style.borderWidth = `${borderThickness.top
       || borderThickness.borderThickness
       || 0 * scaleFactor}px ${borderThickness.right
       || borderThickness.borderThickness
@@ -139,13 +138,7 @@ const ContentControl = ({
       || 0 * scaleFactor}px`;
   }
 
-  return (
-    <div style={containerStyle}>
-      <div style={contentMarginStyle}>
-        <div style={contentPaddingStyle}>{child}</div>
-      </div>
-    </div>
-  );
+  return <div style={style}>{child}</div>;
 };
 
 ContentControl.defaultProps = {
@@ -159,8 +152,12 @@ ContentControl.defaultProps = {
   borderStyle: 'none',
   borderColor: '#000000ff',
   child: null,
-  contentAlignment: 'start',
-  inline: true,
+  contentAlignment: 'left',
+  inline: false,
+  minWidth: null,
+  minHeight: null,
+  width: null,
+  height: null,
 };
 ContentControl.propTypes = {
   background: MorphPropTypes.hexColorStringWithAlpha,
@@ -175,6 +172,10 @@ ContentControl.propTypes = {
   child: MorphPropTypes.child,
   contentAlignment: MorphPropTypes.contentAlignment,
   inline: PropTypes.bool,
+  minWidth: PropTypes.number,
+  minHeight: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 export default ContentControl;
