@@ -12,13 +12,13 @@ const ContentControl = ({
   borderColor,
   borderStyle,
   padding,
-  content,
   contentAlignment,
   inline,
   minWidth,
   width,
   minHeight,
   height,
+  children,
 }) => {
   let scaleFactor = 1;
   switch (scale.toLowerCase()) {
@@ -138,7 +138,7 @@ const ContentControl = ({
       || 0 * scaleFactor}px`;
   }
 
-  return <div style={style}>{content}</div>;
+  return <div style={style}>{children}</div>;
 };
 
 ContentControl.defaultProps = {
@@ -151,7 +151,7 @@ ContentControl.defaultProps = {
   borderThickness: { borderThickness: 1 },
   borderStyle: 'none',
   borderColor: '#000000ff',
-  content: null,
+  children: null,
   contentAlignment: 'left',
   inline: false,
   minWidth: null,
@@ -169,7 +169,7 @@ ContentControl.propTypes = {
   scale: MorphPropTypes.maatMuiScaleFactor,
   margin: MorphPropTypes.margin,
   padding: MorphPropTypes.padding,
-  content: MorphPropTypes.child,
+  children: MorphPropTypes.child,
   contentAlignment: MorphPropTypes.contentAlignment,
   inline: PropTypes.bool,
   minWidth: PropTypes.number,
