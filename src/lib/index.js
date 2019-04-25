@@ -1,3 +1,4 @@
 import ContentControl from './ContentControl';
+import TextBlock from './TextBlock';
 
-export { ContentControl }; // eslint-disable-line import/prefer-default-export
+export { ContentControl, TextBlock };

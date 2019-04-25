@@ -27,3 +27,12 @@ import { ContentControl } from "@ncodefactory/morph-ctrls";
 
 ReactDOM.render(<ContentControl />, document.getElementById("root"));
 ```
+### TextBlock
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { TextBlock } from "@ncodefactory/morph-ctrls";
+
+ReactDOM.render(<TextBlock text="Lorem ipsum" />, document.getElementById("root"));
+```
